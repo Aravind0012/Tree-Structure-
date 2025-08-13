@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pure JS TreeView</title>
+<script src="index.js"></script>
+</head>
+<body>
+  <h2>Tree View Example</h2>
+  <div id="treeContainer"></div>
+
+
+  <script>
+    const bulkTreeData = [
+    {
+      id: 'org-1',
+      name: '🏢 Organization Structure',
+      docid: 1,
+      children: [
+        {
+          id: 'exec-1',
+          name: 'Executive Team',
+          children: [
+            { id: 'ceo-1', name: 'Chief Executive Officer' },
+            { id: 'cto-1', name: 'Chief Technology Officer' },
+            { id: 'cfo-1', name: 'Chief Financial Officer' },
+            { id: 'cmo-1', name: 'Chief Marketing Officer' }
+          ]
+        },
+        {
+          id: 'eng-1',
+          name: 'Engineering Department',
+          children: [
+            {
+              id: 'frontend-1',
+              name: 'Frontend Team',
+              children: [
+                { id: 'fe-lead-1', name: 'Frontend Team Lead' },
+                { id: 'react-dev-1', name: 'React Developer' },
+                { id: 'vue-dev-1', name: 'Vue.js Developer' },
+                { id: 'ui-ux-1', name: 'UI/UX Designer' }
+              ]
+            },
+            {
+              id: 'backend-1',
+              name: 'Backend Team',
+              children: [
+                { id: 'be-lead-1', name: 'Backend Team Lead' },
+                { id: 'node-dev-1', name: 'Node.js Developer' },
+                { id: 'python-dev-1', name: 'Python Developer' },
+                { id: 'db-admin-1', name: 'Database Administrator' }
+              ]
+            },
+            {
+              id: 'devops-1',
+              name: 'DevOps Team',
+              children: [
+                { id: 'devops-lead-1', name: 'DevOps Lead' },
+                { id: 'cloud-eng-1', name: 'Cloud Engineer' },
+                { id: 'security-eng-1', name: 'Security Engineer' }
+              ]
+            }
+          ]
+        },
+        {
+          id: 'marketing-1',
+          name: 'Marketing Department',
+          children: [
+            { id: 'content-mgr-1', name: 'Content Manager' },
+            { id: 'social-media-1', name: 'Social Media Specialist' },
+            { id: 'seo-specialist-1', name: 'SEO Specialist' },
+            { id: 'ppc-specialist-1', name: 'PPC Specialist' }
+          ]
+        }
+      ]
+    },
+    {
+      id: 'projects-1',
+      name: '📁 Project Portfolio',
+      children: [
+        {
+          id: 'web-projects-1',
+          name: 'Web Applications',
+          children: [
+            {
+              id: 'ecommerce-1',
+              name: 'E-commerce Platform',
+              children: [
+                { id: 'user-auth-1', name: 'User Authentication' },
+                { id: 'payment-gateway-1', name: 'Payment Gateway Integration' },
+                { id: 'inventory-mgmt-1', name: 'Inventory Management' },
+                { id: 'order-processing-1', name: 'Order Processing System' }
+              ]
+            },
+            {
+              id: 'cms-1',
+              name: 'Content Management System',
+              children: [
+                { id: 'admin-panel-1', name: 'Admin Panel' },
+                { id: 'content-editor-1', name: 'WYSIWYG Editor' },
+                { id: 'media-library-1', name: 'Media Library' },
+                { id: 'seo-tools-1', name: 'SEO Tools' }
+              ]
+            },
+            {
+              id: 'dashboard-1',
+              name: 'Analytics Dashboard',
+              children: [
+                { id: 'charts-viz-1', name: 'Charts & Visualizations' },
+                { id: 'real-time-data-1', name: 'Real-time Data Streaming' },
+                { id: 'export-tools-1', name: 'Export Tools' }
+              ]
+            }
+          ]
+        },
+        {
+          id: 'mobile-projects-1',
+          name: 'Mobile Applications',
+          children: [
+            {
+              id: 'ios-apps-1',
+              name: 'iOS Applications',
+              children: [
+                { id: 'fitness-app-1', name: 'Fitness Tracking App' },
+                { id: 'recipe-app-1', name: 'Recipe Management App' },
+                { id: 'budget-app-1', name: 'Budget Tracker' }
+              ]
+            },
+            {
+              id: 'android-apps-1',
+              name: 'Android Applications',
+              children: [
+                { id: 'todo-app-1', name: 'Task Management App' },
+                { id: 'weather-app-1', name: 'Weather Forecast App' },
+                { id: 'news-app-1', name: 'News Aggregator' }
+              ]
+            },
+            {
+              id: 'hybrid-apps-1',
+              name: 'Cross-platform Apps',
+              children: [
+                { id: 'chat-app-1', name: 'Real-time Chat Application' },
+                { id: 'social-app-1', name: 'Social Network App' }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      id: 'resources-1',
+      name: '📚 Knowledge Base',
+      children: [
+        {
+          id: 'documentation-1',
+          name: 'Documentation',
+          children: [
+            {
+              id: 'api-docs-1',
+              name: 'API Documentation',
+              children: [
+                { id: 'rest-api-1', name: 'REST API Reference' },
+                { id: 'graphql-api-1', name: 'GraphQL API Reference' },
+                { id: 'websocket-api-1', name: 'WebSocket API Reference' }
+              ]
+            },
+            {
+              id: 'user-guides-1',
+              name: 'User Guides',
+              children: [
+                { id: 'getting-started-1', name: 'Getting Started Guide' },
+                { id: 'advanced-features-1', name: 'Advanced Features' },
+                { id: 'troubleshooting-1', name: 'Troubleshooting Guide' },
+                { id: 'faq-1', name: 'Frequently Asked Questions' }
+              ]
+            },
+            {
+              id: 'tech-specs-1',
+              name: 'Technical Specifications',
+              children: [
+                { id: 'system-requirements-1', name: 'System Requirements' },
+                { id: 'performance-metrics-1', name: 'Performance Metrics' },
+                { id: 'security-standards-1', name: 'Security Standards' }
+              ]
+            }
+          ]
+        },
+        {
+          id: 'tutorials-1',
+          name: 'Tutorials & Courses',
+          children: [
+            {
+              id: 'beginner-tutorials-1',
+              name: 'Beginner Tutorials',
+              children: [
+                { id: 'html-css-basics-1', name: 'HTML & CSS Basics' },
+                { id: 'js-fundamentals-1', name: 'JavaScript Fundamentals' },
+                { id: 'version-control-1', name: 'Git Version Control' }
+              ]
+            },
+            {
+              id: 'intermediate-tutorials-1',
+              name: 'Intermediate Tutorials',
+              children: [
+                { id: 'react-tutorial-1', name: 'React.js Complete Course' },
+                { id: 'nodejs-tutorial-1', name: 'Node.js Backend Development' },
+                { id: 'database-tutorial-1', name: 'Database Design & SQL' }
+              ]
+            },
+            {
+              id: 'advanced-tutorials-1',
+              name: 'Advanced Tutorials',
+              children: [
+                { id: 'microservices-1', name: 'Microservices Architecture' },
+                { id: 'cloud-deployment-1', name: 'Cloud Deployment Strategies' },
+                { id: 'performance-optimization-1', name: 'Performance Optimization' }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      id: 'tools-1',
+      name: '🛠️ Development Tools',
+      children: [
+        {
+          id: 'code-editors-1',
+          name: 'Code Editors & IDEs',
+          children: [
+            { id: 'vscode-1', name: 'Visual Studio Code' },
+            { id: 'webstorm-1', name: 'WebStorm' },
+            { id: 'sublime-1', name: 'Sublime Text' },
+            { id: 'atom-1', name: 'Atom Editor' }
+          ]
+        },
+        {
+          id: 'frameworks-1',
+          name: 'Frameworks & Libraries',
+          children: [
+            {
+              id: 'frontend-frameworks-1',
+              name: 'Frontend Frameworks',
+              children: [
+                { id: 'react-1', name: 'React.js' },
+                { id: 'vue-1', name: 'Vue.js' },
+                { id: 'angular-1', name: 'Angular' },
+                { id: 'svelte-1', name: 'Svelte' }
+              ]
+            },
+            {
+              id: 'backend-frameworks-1',
+              name: 'Backend Frameworks',
+              children: [
+                { id: 'express-1', name: 'Express.js' },
+                { id: 'fastify-1', name: 'Fastify' },
+                { id: 'django-1', name: 'Django' },
+                { id: 'flask-1', name: 'Flask' }
+              ]
+            },
+            {
+              id: 'css-frameworks-1',
+              name: 'CSS Frameworks',
+              children: [
+                { id: 'tailwind-1', name: 'Tailwind CSS' },
+                { id: 'bootstrap-1', name: 'Bootstrap' },
+                { id: 'bulma-1', name: 'Bulma' },
+                { id: 'materialize-1', name: 'Materialize CSS' }
+              ]
+            }
+          ]
+        },
+        {
+          id: 'testing-tools-1',
+          name: 'Testing & Quality Assurance',
+          children: [
+            {
+              id: 'unit-testing-1',
+              name: 'Unit Testing',
+              children: [
+                { id: 'jest-1', name: 'Jest' },
+                { id: 'mocha-1', name: 'Mocha' },
+                { id: 'vitest-1', name: 'Vitest' }
+              ]
+            },
+            {
+              id: 'e2e-testing-1',
+              name: 'End-to-End Testing',
+              children: [
+                { id: 'playwright-1', name: 'Playwright' },
+                { id: 'cypress-1', name: 'Cypress' },
+                { id: 'selenium-1', name: 'Selenium WebDriver' }
+              ]
+            },
+            {
+              id: 'code-quality-1',
+              name: 'Code Quality Tools',
+              children: [
+                { id: 'eslint-1', name: 'ESLint' },
+                { id: 'prettier-1', name: 'Prettier' },
+                { id: 'sonarqube-1', name: 'SonarQube' }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      id: 'infrastructure-1',
+      name: '☁️ Infrastructure & DevOps',
+      children: [
+        {
+          id: 'cloud-providers-1',
+          name: 'Cloud Providers',
+          children: [
+            {
+              id: 'aws-1',
+              name: 'Amazon Web Services',
+              children: [
+                { id: 'ec2-1', name: 'EC2 Instances' },
+                { id: 's3-1', name: 'S3 Storage' },
+                { id: 'lambda-1', name: 'Lambda Functions' },
+                { id: 'rds-1', name: 'RDS Databases' }
+              ]
+            },
+            {
+              id: 'azure-1',
+              name: 'Microsoft Azure',
+              children: [
+                { id: 'azure-vm-1', name: 'Virtual Machines' },
+                { id: 'azure-storage-1', name: 'Blob Storage' },
+                { id: 'azure-functions-1', name: 'Azure Functions' }
+              ]
+            },
+            {
+              id: 'gcp-1',
+              name: 'Google Cloud Platform',
+              children: [
+                { id: 'compute-engine-1', name: 'Compute Engine' },
+                { id: 'cloud-storage-1', name: 'Cloud Storage' },
+                { id: 'cloud-functions-1', name: 'Cloud Functions' }
+              ]
+            }
+          ]
+        },
+        {
+          id: 'containerization-1',
+          name: 'Containerization & Orchestration',
+          children: [
+            {
+              id: 'docker-1',
+              name: 'Docker',
+              children: [
+                { id: 'docker-compose-1', name: 'Docker Compose' },
+                { id: 'dockerfile-1', name: 'Dockerfile Best Practices' },
+                { id: 'docker-registry-1', name: 'Docker Registry' }
+              ]
+            },
+            {
+              id: 'kubernetes-1',
+              name: 'Kubernetes',
+              children: [
+                { id: 'k8s-pods-1', name: 'Pods & Deployments' },
+                { id: 'k8s-services-1', name: 'Services & Ingress' },
+                { id: 'k8s-configmaps-1', name: 'ConfigMaps & Secrets' }
+              ]
+            }
+          ]
+        },
+        {
+          id: 'monitoring-1',
+          name: 'Monitoring & Logging',
+          children: [
+            { id: 'prometheus-1', name: 'Prometheus' },
+            { id: 'grafana-1', name: 'Grafana' },
+            { id: 'elk-stack-1', name: 'ELK Stack' },
+            { id: 'datadog-1', name: 'Datadog' }
+          ]
+        }
+      ]
+    }
+  ];
+  window.tree = new TreeView({
+      container: document.getElementById('treeContainer'),
+      data: bulkTreeData,
+      displayField: 'name',
+      multiSelect: true,      
+      searchable: true,        
+      expandAll: false,        
+      theme: 'light',                
+      showCheckboxes: true,
+      showPagination: true,    
+      onNodeClick: (node) => console.log('Clicked:', node),
+      onNodeSelect: (node) => console.log('Selected:', node),
+      onNodeExpand: (nodeId) => console.log('Expanded:', nodeId),
+      onNodeCollapse: (nodeId) => console.log('Collapsed:', nodeId)
+  });
+  </script>
+</body>
+</html>
